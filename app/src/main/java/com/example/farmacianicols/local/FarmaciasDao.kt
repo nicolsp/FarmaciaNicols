@@ -17,4 +17,5 @@ interface FarmaciasDao {
     @Query("SELECT *FROM farmacias_table WHERE id =:mId")
     fun showOnFarmaciasByID(mId : Int): LiveData<FarmaciasUsadas>
 
+    suspend fun updateFarmacias(farmaciasUsadas: FarmaciasUsadas)
 }
