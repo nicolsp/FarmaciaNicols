@@ -14,41 +14,42 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class FarmaciasRepository(private val farmaciasDao: FarmaciasDao) {
-    private val service = RetrofitClient.getoRetrofitCliente()
+    private val Retroservice = RetrofitClient.getoRetrofitCliente()
     val mLiveData = farmaciasDao.showAllFafarmacias()
 
     fun obtainFarmaciasByID(id : Int): LiveData<FarmaciasUsadas> {
         return farmaciasDao.showOnFarmaciasByID(id)
     }
 
-    suspend fun updateFarmacias(farmaciasUsadas: FarmaciasUsadas) {
-      farmaciasDao.updateFarmacias(farmaciasUsadas)
-    }
+   // suspend fun updateFarmacias(farmaciasUsadas: FarmaciasUsadas) {
+     // farmaciasDao.updateFarmacias(farmaciasUsadas)
+    //}
 
-    fun getDataFromServe() {
-        val call = service.fetAllFarmacia()
+    suspend fun getDataFromServe() {
+val call = Retroservice.fetAllFarmacia()
         call.enqueue(object : Callback<List<FarmaciaEntityItem>> {
-            override fun onResponse(call: Call<List<FarmaciaEntityItem>>,
-                                    response: Response<List<FarmaciaEntityItem>>) {
+            override fun onResponse(
+                call: Call<List<FarmaciaEntityItem>>,
+                response: Response<List<FarmaciaEntityItem>>
+            ) {
                 when(response.code()) {
                     in 200..299 -> CoroutineScope(Dispatchers.IO).launch {
-                            Log.d("RESPONDEOKKK",response.body().toString())
+                        Log.d("RESPONDEOKKK",response.code().toString())
                         response.body()?.let {
-                         //   farmaciasDao.insertAllFarmacias(convert(it))
+                          //  farmaciasDao.insertAllFarmacias(convert(it))
                         }
                     }
-                    in 300..599 -> Log.d("RESPONDE__300", response.body().toString())
-                    else -> Log.d("ERROR",response.errorBody().toString())
-                }
-
+                    in 300..509 -> Log.d("RESPONSE_300",response.body().toString())
+                    else -> Log.d("ERROR", response.errorBody().toString())
             }
+
+        }
 
             override fun onFailure(call: Call<List<FarmaciaEntityItem>>, t: Throwable) {
-                Log.e("ERRROR", t.message.toString())
-
+               Log.e("ERROR",t.message.toString())
             }
-
         })
+
     }
     fun convert(listFromNetwor: List<FarmaciasUsadas>): List<FarmaciasUsadas> {
         val listmjutable = mutableListOf<FarmaciasUsadas>()

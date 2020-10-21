@@ -9,25 +9,31 @@ import com.example.farmacianicols.local.FarmaciasDatBaseee
 import com.example.farmacianicols.local.FarmaciasUsadas
 import kotlinx.coroutines.launch
 
-class FarmaciasViewModel (application: Application): AndroidViewModel(application){
+abstract class FarmaciasViewModel (application: Application): AndroidViewModel(application){
 
-    private lateinit var repository: FarmaciasRepository
+    abstract val mRepository : FarmaciasRepository
+    //val liveDataFromLocal : LiveData<List<FarmaciasUsadas>>
+    abstract val liveDataFromLocal : LiveData<List<FarmaciasUsadas>>
 
-    init {
-        val farmaciasDao = FarmaciasDatBaseee
-
-    }
+   init {
+       val farmaDao = FarmaciasDatBaseee.get
+   }
+   //init {
+     //  val farmaciasDao = FarmaciasDatBaseee.getDataBase(application)
+       // mRepository = FarmaciasRepository(farmaciasDao)
+       // mRepository.getDataFromServe()
+    //}
 
     fun exposeLiveDataFromDataBase() : LiveData<List<FarmaciasUsadas>> {
-        return repository.mLiveData
+        return mRepository.mLiveData
     }
 
     fun obtainFarmaciasByID(id : Int): LiveData<FarmaciasUsadas> {
-        return repository.obtainFarmaciasByID(id)
+        return mRepository.obtainFarmaciasByID(id)
     }
 
 fun updateFarmacias(farmaciasUsadas: FarmaciasUsadas) = viewModelScope.launch {
-    repository.updateFarmacias(farmaciasUsadas)
+    mRepository.obtainFarmaciasByID(id )
 }
 
 }
