@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "farmacias_table")
 
-class FarmaciasUsadas (@PrimaryKey @NonNull  val id: Int,
+data class FarmaciasUsadas (@PrimaryKey @NonNull  val id: String,
                        val comunaNombre: String,
                        val fecha: String,
                        val fkComuna: String,

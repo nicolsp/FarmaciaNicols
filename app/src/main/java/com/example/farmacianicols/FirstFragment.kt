@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_first.*
  */
 class FirstFragment : Fragment(),FarmaciasAdapter.PassTheData {
 
-    lateinit var mViewModel : FarmaciasViewModel
+    lateinit var mViewModel: FarmaciasViewModel
     lateinit var mAdapter: FarmaciasAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,18 +46,18 @@ class FirstFragment : Fragment(),FarmaciasAdapter.PassTheData {
         recyclerView.adapter = mAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-mViewModel.exposeLiveDataFromDataBase().observe(viewLifecycleOwner, Observer {
-    Log.d("VIEW",it.toString())
-    mAdapter.updateAdapter(it)
-})
+        mViewModel.exposeLiveDataFromDataBase().observe(viewLifecycleOwner, Observer {
+            Log.d("VIEW", it.toString())
+            mAdapter.updateAdapter(it)
+        })
 
-       // view.findViewById<Button>(R.id.button_first).setOnClickListener {
-         //   findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }
+        // view.findViewById<Button>(R.id.button_first).setOnClickListener {
+        //   findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+    }
 
-    override fun passTheData(farmacias: FarmaciasUsadas) {
+    override fun passTheFarmacias(farmacias: FarmaciasUsadas) {
         val bundle = Bundle()
-       // bundle.putString("id",farmaci
-      //  findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
 }
+
+

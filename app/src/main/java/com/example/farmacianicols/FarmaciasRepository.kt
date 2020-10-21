@@ -36,7 +36,7 @@ val call = Retroservice.fetAllFarmacia()
                     in 200..299 -> CoroutineScope(Dispatchers.IO).launch {
                         Log.d("RESPONDEOKKK",response.code().toString())
                         response.body()?.let {
-                          //  farmaciasDao.insertAllFarmacias(convert(it))
+                            farmaciasDao.insertAllFarmacias(convert(it))
                         }
                     }
                     in 300..509 -> Log.d("RESPONSE_300",response.body().toString())
@@ -51,11 +51,22 @@ val call = Retroservice.fetAllFarmacia()
         })
 
     }
-    fun convert(listFromNetwor: List<FarmaciasUsadas>): List<FarmaciasUsadas> {
+    fun convert(listFromNetwor: List<FarmaciaEntityItem>): List<FarmaciasUsadas> {
         val listmjutable = mutableListOf<FarmaciasUsadas>()
         listFromNetwor.map {
-            listmjutable.add(FarmaciasUsadas(it.id,
-            it.comunaNombre,
+            listmjutable.add(FarmaciasUsadas(it.localId,
+                    it.comunaNombre,
+                    it.fecha,
+                    it.fkComuna,
+                    it.fkLocalidad,
+                    it.fkRegion,
+                    it.funcionamientoDia,
+                    it.localDireccion,
+                    it.funcionamientoHoraApertura,
+                    it.funcionamientoHoraCierre
+
+                  ))
+          /*  it.comunaNombre,
             it.fecha,
             it.fkComuna,
             it.fkLocalidad,
@@ -63,10 +74,8 @@ val call = Retroservice.fetAllFarmacia()
             it.fkFuncionamiento,
             it.LocalDirecion,
             it.FuncionamientoHoraApertura,
-            it.FuncionamientoHoraCierre))
+            it.FuncionamientoHoraCierre)) */
         }
         return listmjutable
     }
-
-
 }
