@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -22,12 +23,11 @@ import kotlinx.android.synthetic.main.fragment_first.*
  */
 class FirstFragment : Fragment(),FarmaciasAdapter.PassTheData {
 
-    lateinit var mViewModel: FarmaciasViewModel
-    lateinit var mAdapter: FarmaciasAdapter
+        lateinit var mAdapter: FarmaciasAdapter
+    private val model: FarmaciasViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewModel = ViewModelProvider(this).get(FarmaciasViewModel::class.java)
         mAdapter = FarmaciasAdapter(this)
     }
 
@@ -46,7 +46,7 @@ class FirstFragment : Fragment(),FarmaciasAdapter.PassTheData {
         recyclerView.adapter = mAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        mViewModel.exposeLiveDataFromDataBase().observe(viewLifecycleOwner, Observer {
+        model.exposeLiveDataFromDataBase().observe(viewLifecycleOwner, Observer {
             Log.d("VIEW", it.toString())
             mAdapter.updateAdapter(it)
         })
@@ -57,6 +57,8 @@ class FirstFragment : Fragment(),FarmaciasAdapter.PassTheData {
 
     override fun passTheFarmacias(farmacias: FarmaciasUsadas) {
         val bundle = Bundle()
+        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+
     }
 }
 

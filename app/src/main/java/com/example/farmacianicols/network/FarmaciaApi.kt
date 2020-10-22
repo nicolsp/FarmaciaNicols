@@ -7,6 +7,6 @@ import retrofit2.http.GET
 interface FarmaciaApi {
 
     @GET("getLocalesTurnos")
-   suspend fun fetAllFarmacia(): Call<List<FarmaciaEntityItem>>
+    fun fetAllFarmacia(): Call<List<FarmaciaEntityItem>>
 
 }

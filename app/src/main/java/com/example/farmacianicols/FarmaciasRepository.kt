@@ -25,7 +25,7 @@ class FarmaciasRepository(private val farmaciasDao: FarmaciasDao) {
      // farmaciasDao.updateFarmacias(farmaciasUsadas)
     //}
 
-    suspend fun getDataFromServe() {
+      fun getDataFromServe() {
 val call = Retroservice.fetAllFarmacia()
         call.enqueue(object : Callback<List<FarmaciaEntityItem>> {
             override fun onResponse(
@@ -66,16 +66,7 @@ val call = Retroservice.fetAllFarmacia()
                     it.funcionamientoHoraCierre
 
                   ))
-          /*  it.comunaNombre,
-            it.fecha,
-            it.fkComuna,
-            it.fkLocalidad,
-            it.fkRegion,
-            it.fkFuncionamiento,
-            it.LocalDirecion,
-            it.FuncionamientoHoraApertura,
-            it.FuncionamientoHoraCierre)) */
-        }
+                }
         return listmjutable
     }
 }
